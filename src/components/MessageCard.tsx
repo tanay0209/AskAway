@@ -31,11 +31,13 @@ type MessageCardProps = {
 }
 
 function MessageCard({ message, onMessageDelete }: MessageCardProps) {
+    const { content, _id } = message
+
     const { toast } = useToast()
     const handleDeleteConfirm = async () => {
         try {
             const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`)
-            if (response.status !== 208) {
+            if (response.status !== 200) {
                 toast({
                     title: "Failed to delte the message"
                 })
@@ -58,16 +60,16 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Card Title</CardTitle>
+                <CardDescription className="text-xl mb-2">{content}</CardDescription>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant="destructive"><X className="w-5 h-5" /></Button>
+                        <Button className="bg-red-500 hover:bg-red-600">Delete message</Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete your
+                                This action cannot be undone. This will permanently delete this
                                 message and remove the message from our servers.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
@@ -77,7 +79,6 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
-                <CardDescription>Card Description</CardDescription>
             </CardHeader>
         </Card>
 

@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnection";
 import UserModel from "@/model/User";
+import { redirect } from "next/navigation";
 
 
 export async function POST(request: Request) {

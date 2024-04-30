@@ -40,8 +40,10 @@ function page() {
                 setCheckingUsername(true)
                 setUsernameMessage('')
                 try {
-                    const response = await axios.get(`/api/check-username-unique/username=${username}`)
-                    setUsername(response.data.message)
+                    const response = await axios.get(`/api/check-username-unique?username=${username}`)
+                    console.log(response.data.message);
+
+                    setUsernameMessage(response.data.message)
                 } catch (error) {
                     const axiosError = error as AxiosError<ApiError>
                     setUsernameMessage(axiosError.response?.data.message ?? "Error checking username")
@@ -117,7 +119,7 @@ function page() {
                                     />}
                                     <p
                                         className={`text-sm ${usernameMessage === "Username is available" ? 'text-green-500' : 'text-red-500'}`}
-                                    ></p>
+                                    >{usernameMessage}</p>
                                     <FormMessage />
                                 </FormItem>
                             )}

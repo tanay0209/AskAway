@@ -40,7 +40,7 @@ function page() {
                 title: "Success",
                 description: response.data.message
             })
-            router.replace('/sign-in')
+            router.replace('/dashboard')
         } catch (error) {
             const axiosError = error as AxiosError<ApiError>
             let errorMessage = axiosError.response?.data.message

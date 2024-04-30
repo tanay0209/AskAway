@@ -1,6 +1,5 @@
 import dbConnect from "@/lib/dbConnection";
 import UserModel from "@/model/User";
-import { getServerSession } from "next-auth";
 import { Message } from "@/model/User";
 
 

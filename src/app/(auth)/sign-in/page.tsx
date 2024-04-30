@@ -34,7 +34,6 @@ function page() {
             identifier: data.identifier,
             password: data.password
         })
-        // TODO: PRINT AND SEE THE RESULT
         if (result?.error) {
             toast({
                 title: "Login Failed",
