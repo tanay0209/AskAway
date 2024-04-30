@@ -14,17 +14,17 @@ function Navbar() {
             <div className='container mx-auto flex flex-col md:flex-row justify-between items-center'>
                 <a
                     className='text-xl font-bold mb-4 md:mb-0'
-                    href="#">Mystery Message</a>
+                    href="/">Mystery Message</a>
                 {
                     session ? (
-                        <>
-                            <span
+                        <div className='w-full flex items-center justify-between'>
+                            <div
                                 className='mr-4'
-                            >Welcome, {user?.username || user?.username}</span>
+                            >Welcome, {user?.username}</div>
                             <Button
-                                className='w-full md:m-auto'
+                                className=''
                                 onClick={() => signOut()}>Log out</Button>
-                        </>
+                        </div>
                     ) : (
                         <Link href='/sign-in' >
                             <Button
@@ -33,8 +33,8 @@ function Navbar() {
                         </Link>
                     )
                 }
-            </div>
-        </nav>
+            </div >
+        </nav >
     )
 }
 
