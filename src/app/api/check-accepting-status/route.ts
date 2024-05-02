@@ -42,7 +42,7 @@ export async function GET(request: Request) {
             isAcceptingMessages: messageStatus
         }, { status: 200 })
     } catch (error) {
-        Response.json({
+        return Response.json({
             success: false,
             message: "Something went wrong while retrieving status"
         }, { status: 500 })
