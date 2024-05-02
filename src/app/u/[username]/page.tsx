@@ -13,7 +13,7 @@ import * as z from 'zod'
 import { useChat } from 'ai/react'
 
 
-function page() {
+function PublicPage() {
     const [acceptingMsg, setAcceptingMsg] = useState<boolean>(true)
     const { username } = useParams()
     const { toast } = useToast()
@@ -161,4 +161,4 @@ function page() {
     )
 }
 
-export default page
+export default PublicPage

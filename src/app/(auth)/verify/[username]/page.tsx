@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import *  as z from 'zod'
 
 
-function page() {
+function Verify() {
     const router = useRouter()
     const params = useParams<{ username: string }>()
     const { toast } = useToast()
@@ -83,4 +83,4 @@ function page() {
     )
 }
 
-export default page
+export default Verify
