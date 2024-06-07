@@ -22,8 +22,8 @@ function Signin() {
     const form = useForm<z.infer<typeof signinSchena>>({
         resolver: zodResolver(signinSchena),
         defaultValues: {
-            identifier: "",
-            password: ""
+            identifier: "guest",
+            password: "guest123"
         }
     })
 
@@ -55,7 +55,7 @@ function Signin() {
                 className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md"
             >
                 <div className="text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join Mystery Message</h1>
+                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join AnonymousMsg</h1>
                     <p className="mb-4">Sign in to start your journey</p>
                 </div>
                 <Form {...form}>
@@ -69,7 +69,8 @@ function Signin() {
                                 <FormItem>
                                     <FormLabel>Username/Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Username/Email"
+                                        <Input
+                                            placeholder="Username/Email"
                                             {...field}
                                         />
                                     </FormControl>
@@ -85,6 +86,7 @@ function Signin() {
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
                                         <Input
+
                                             type="password"
                                             placeholder="Password"
                                             {...field}

@@ -14,12 +14,12 @@ function Navbar() {
             <div className='container mx-auto flex flex-col md:flex-row justify-between items-center'>
                 <a
                     className='text-xl font-bold mb-4 md:mb-0'
-                    href="/">Mystery Message</a>
+                    href="/">AnonymousMsg </a>
                 {
                     session ? (
                         <div className='w-full flex items-center justify-between'>
                             <div
-                                className='mr-4'
+                                className='ml-4'
                             >Welcome, {user?.username}</div>
                             <Button
                                 className=''
