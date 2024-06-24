@@ -1,6 +1,6 @@
 import dbConnect from '@/lib/dbConnection';
 import UserModel from '@/model/User';
-import { UsernameQuerySchema } from '../check-accepting-status/route';
+import { UsernameQuerySchema } from '@/schemas/usernameQuerySchema';
 
 export async function GET(request: Request) {
 

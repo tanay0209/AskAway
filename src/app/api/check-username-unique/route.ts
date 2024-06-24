@@ -1,11 +1,8 @@
 import dbConnect from "@/lib/dbConnection";
 import UserModel from "@/model/User";
 import { z } from "zod"
-import { usernameValidation } from "@/schemas/signupSchema";
+import { UsernameQuerySchema } from "@/schemas/usernameQuerySchema";
 
-const UsernameQuerySchema = z.object({
-    username: usernameValidation
-})
 
 export async function GET(request: Request) {
     await dbConnect()
