@@ -190,7 +190,7 @@ function PublicPage() {
                 <div
                     className=" md:gap-2 grid grid-cols-1 md:grid-cols-2"
                 >
-                    {message.length === 0 ? <h3>{username} hasn't answered any questions so far...</h3> : <>
+                    {message.length === 0 ? <h3>{username} hasn&apos;t answered any questions so far...</h3> : <>
                         {
                             message.map(message => {
                                 return message.visibility ? <div
