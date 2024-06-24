@@ -7,20 +7,24 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import axios, { AxiosError } from "axios"
 import Link from "next/link"
 import { useParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
 import { useChat } from 'ai/react'
+import { Message } from "@/model/User"
 
 
 function PublicPage() {
     const [acceptingMsg, setAcceptingMsg] = useState<boolean>(true)
+    const [message, setMessages] = useState<Message[]>([]);
+    const [loading, setLoading] = useState<Boolean>(false);
     const { username } = useParams()
     const { toast } = useToast()
     const { register, handleSubmit, formState: { errors, isSubmitting }, setValue, reset } = useForm<z.infer<typeof messageSchema>>({ resolver: zodResolver(messageSchema) })
     const delimiter = "||"
     const initalMessage = "What's a dream destination you've always wanted to visit?||If you could learn any skill instantly, what would it be and why?||What's a book or movie that has profoundly impacted your perspective on life?"
     const { messages, isLoading, handleSubmit: promptSubmit, error } = useChat({ api: '/api/suggest-messages', initialInput: initalMessage });
+
     const parseString = (messageString: string): string[] => {
         return messageString.split(delimiter)
     }
@@ -57,7 +61,6 @@ function PublicPage() {
             if (response.status !== 200) {
                 throw new Error("Not able to send message")
             }
-            console.log(response);
             toast({
                 title: "Success",
                 description: "Message sent successfully"
@@ -76,9 +79,40 @@ function PublicPage() {
 
     }
 
+    const fetchMessages = useCallback(
+        async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get('/api/messages-username', {
+                    params: {
+                        username: username
+                    }
+                }
+                );
+                setMessages(response.data.messages || []);
+                setMessages(prev => {
+                    return prev.filter(message => message.visibility === true)
+                })
+            } catch (error) {
+                const axiosError = error as AxiosError<ApiResponse>;
+                toast({
+                    title: 'Error',
+                    description:
+                        axiosError.response?.data.message ?? 'Failed to fetch messages',
+                    variant: 'destructive',
+                });
+            } finally {
+                setLoading(false);
+            }
+        },
+        [setLoading, toast, username]
+    );
+
     useEffect(() => {
         fetchStatus()
-    }, [username, acceptingMsg, messages])
+        fetchMessages()
+
+    }, [username, acceptingMsg, messages, setMessages])
 
     return (
         <div className="md:max-w-4xl max-w-md  mx-auto mt-8 p-8">
@@ -146,6 +180,37 @@ function PublicPage() {
                                     </li>
                                 })}
                             </ul>}</>}</>}
+                </div>
+                <div>
+                    <h2
+                        className="text-xl font-bold"
+                    >
+                        Questions asked to {username}</h2>
+                </div>
+                <div
+                    className=" md:gap-2 grid grid-cols-1 md:grid-cols-2"
+                >
+                    {message.length === 0 ? <h3>{username} hasn't answered any questions so far...</h3> : <>
+                        {
+                            message.map(message => {
+                                return message.visibility ? <div
+                                    className="border border-gray-200 p-2 rounded-md"
+                                    key={message._id}
+                                >
+                                    <p
+                                        className="font-semibold"
+                                    >
+                                        Msg.  {message.content}
+                                    </p>
+                                    <p
+                                        className="font-normal"
+                                    >
+                                        Ans: {message.answer ? message.answer : "Not answered yet"}
+                                    </p>
+                                </div> : <></>
+                            })
+                        }
+                    </>}
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center mt-8 space-y-4">

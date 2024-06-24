@@ -16,6 +16,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { acceptMessageSchema } from '@/schemas/acceptMessageSchema';
 
+
+
 function UserDashboard() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -90,8 +92,6 @@ function UserDashboard() {
         fetchMessages();
 
         fetchAcceptMessages();
-        console.log(acceptMessages);
-
     }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
 
     const handleSwitchChange = async () => {
@@ -119,14 +119,12 @@ function UserDashboard() {
     if (!session || !session.user) {
         return <div></div>;
     }
-
     const { username } = session.user as User;
-
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
     const profileUrl = `${baseUrl}/u/${username}`;
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(profileUrl);
+    const copyToClipboard = async () => {
+        await navigator.clipboard.writeText(profileUrl);
         toast({
             title: 'URL Copied!',
             description: 'Profile URL has been copied to clipboard.',
@@ -135,7 +133,7 @@ function UserDashboard() {
     return (
         <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
             <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
-
+            <h2 className='mb-2 text-lg'>Welcome, {session?.user.username}</h2>
             <div className="mb-4">
                 <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{' '}
                 <div className="flex items-center">
@@ -180,6 +178,7 @@ function UserDashboard() {
                 {messages.length > 0 ? (
                     messages.map((message, index) => (
                         <MessageCard
+                            username={username!}
                             key={message._id}
                             message={message}
                             onMessageDelete={handleDeleteMessage}

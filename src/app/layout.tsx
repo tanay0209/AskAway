@@ -3,11 +3,14 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"] });
 
+
+
 export const metadata: Metadata = {
-    title: "AnonymousMsg",
-    description: "AnonymousMsg is an application where users can send message to other anonymously.",
+    title: "SpeakOut",
+    description: "SpeakOut is a web application where users can ask questions to others without revealing their identity.",
 };
 
 export default function RootLayout({
@@ -22,6 +25,7 @@ export default function RootLayout({
                     {children}
                     <Toaster />
                 </body>
+                <Analytics />
             </AuthProvider>
         </html>
     );

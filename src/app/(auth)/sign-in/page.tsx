@@ -22,8 +22,8 @@ function Signin() {
     const form = useForm<z.infer<typeof signinSchena>>({
         resolver: zodResolver(signinSchena),
         defaultValues: {
-            identifier: "guest",
-            password: "guest123"
+            identifier: "",
+            password: ""
         }
     })
 
@@ -49,13 +49,13 @@ function Signin() {
     }
     return (
         <div
-            className="flex justify-center items-center min-h-screen bg-gray-100"
+            className="flex justify-center items-center min-h-screen bg-gray-100 p-4"
         >
             <div
                 className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md"
             >
                 <div className="text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join AnonymousMsg</h1>
+                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join SpeakOut</h1>
                     <p className="mb-4">Sign in to start your journey</p>
                 </div>
                 <Form {...form}>
@@ -70,6 +70,7 @@ function Signin() {
                                     <FormLabel>Username/Email</FormLabel>
                                     <FormControl>
                                         <Input
+                                            className='focus:border-0'
                                             placeholder="Username/Email"
                                             {...field}
                                         />
@@ -86,7 +87,7 @@ function Signin() {
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
                                         <Input
-
+                                            className='focus:border-0'
                                             type="password"
                                             placeholder="Password"
                                             {...field}
@@ -98,6 +99,7 @@ function Signin() {
                         />
                         <Button
                             type="submit"
+                            className='w-full'
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? <>
@@ -109,6 +111,7 @@ function Signin() {
                     </form>
                 </Form>
                 <div className="text-center mt-4">
+                    <p>Guest username:guest  password:12345678</p>
                     <p>
                         New User?{' '}
                         <Link

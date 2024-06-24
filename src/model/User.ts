@@ -3,6 +3,8 @@ import mongoose, { Document, Schema } from "mongoose"
 
 export interface Message extends Document {
     content: string,
+    answer: string,
+    visibility: boolean,
     createdAt: Date
 }
 
@@ -10,6 +12,13 @@ const MessageSchema: Schema<Message> = new Schema({
     content: {
         type: String,
         required: true
+    },
+    answer: {
+        type: String
+    },
+    visibility: {
+        type: Boolean,
+        default: true,
     },
     createdAt: {
         type: Date,
@@ -22,6 +31,8 @@ export interface User extends Document {
     username: string,
     email: string,
     password: string,
+    instagram: string,
+    x: string,
     verifyCode: string,
     verifyCodeExpiry: Date,
     isVerified: boolean,
@@ -45,6 +56,12 @@ const UserSchema: Schema<User> = new Schema({
     password: {
         type: String,
         required: [true, "Password is required"]
+    },
+    instagram: {
+        type: String
+    },
+    x: {
+        type: String
     },
     verifyCode: {
         type: String,

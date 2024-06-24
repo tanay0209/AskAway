@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata = {
-  title: 'AnonymousMsg - Sign Up',
+  title: 'SpeakOut - Sign Up',
   description: '',
 }
 

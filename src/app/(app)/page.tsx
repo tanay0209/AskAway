@@ -15,11 +15,11 @@ export default function Home() {
     <div className='w-full'>
       <main className="flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white h-full">
         <section className="text-center mb-8 md:mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold">
-            Dive into the World of Anonymous Feedback
+          <h1 className="text-2xl md:text-5xl font-bold">
+            Ask questions without caring about your identity! &#128521;
           </h1>
           <p className="mt-3 md:mt-4 text-base md:text-lg">
-            AnonymousMsg - Where your identity remains a secret.
+            SpeakOut - Where your identity remains a secret.
           </p>
         </section>
 

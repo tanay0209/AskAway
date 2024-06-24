@@ -1,12 +1,10 @@
-import dbConnect from "@/lib/dbConnection"
-import UserModel from "@/model/User"
-import { usernameValidation } from "@/schemas/signupSchema"
-import * as z from 'zod'
+import dbConnect from '@/lib/dbConnection';
+import UserModel from '@/model/User';
+import { UsernameQuerySchema } from '../check-accepting-status/route';
 
-export const UsernameQuerySchema = z.object({
-    username: usernameValidation
-})
 export async function GET(request: Request) {
+
+
     await dbConnect()
     try {
         const { searchParams } = new URL(request.url)
@@ -22,28 +20,24 @@ export async function GET(request: Request) {
             },
                 { status: 400 })
         }
-        const { username } = result.data
-        const user = await UserModel.findOne({
-            username,
-            isVerified: true
-        })
+        const username = result.data.username
+        const user = await UserModel.aggregate([
+            { $match: { username: username } },
+            { $unwind: '$messages' },
+            { $sort: { 'messages.createdAt': -1 } },
+            { $group: { _id: '$_id', messages: { $push: '$messages' } } }
+        ]).exec()
         if (!user) {
             return Response.json({
                 success: false,
-                message: "Not able to find the user"
-            },
-                { status: 400 })
+                message: "User not found"
+            }, { status: 401 })
         }
-        const messageStatus = user.isAcceptingMessage
         return Response.json({
             success: true,
-            message: "User is accepting messages",
-            isAcceptingMessages: messageStatus
+            messages: user[0]?.messages
         }, { status: 200 })
     } catch (error) {
-        return Response.json({
-            success: false,
-            message: "Something went wrong while retrieving status"
-        }, { status: 500 })
+        return Response.json({ success: false, message: "Unable to fetch messages" }, { status: 500 })
     }
 }

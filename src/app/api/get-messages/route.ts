@@ -11,7 +11,6 @@ export async function GET() {
 
 
     if (!session || !session.user) {
-        console.log(session);
         return Response.json({
             success: false,
             message: "Not Authenticated"

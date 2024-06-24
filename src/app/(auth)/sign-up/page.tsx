@@ -86,13 +86,13 @@ function Signup() {
     }
     return (
         <div
-            className="flex justify-center items-center min-h-screen bg-gray-100"
+            className="flex justify-center items-center min-h-screen bg-gray-100 p-4"
         >
             <div
                 className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md"
             >
                 <div className="text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join AnonymousMsg</h1>
+                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join SpeakOut</h1>
                     <p className="mb-4">Sign up to start your journey</p>
                 </div>
                 <Form {...form}>
@@ -107,6 +107,7 @@ function Signup() {
                                     <FormLabel>Username</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Username"
+                                            className="focus:border-none"
                                             {...field}
                                             onChange={(e) => {
                                                 field.onChange(e)
@@ -131,7 +132,9 @@ function Signup() {
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Email"
+                                        <Input
+                                            className="focus:border-0"
+                                            placeholder="Email"
                                             {...field}
                                         />
                                     </FormControl>
@@ -147,6 +150,7 @@ function Signup() {
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
                                         <Input
+                                            className="focus:border-0"
                                             type="password"
                                             placeholder="Password"
                                             {...field}
@@ -158,6 +162,7 @@ function Signup() {
                         />
                         <Button
                             type="submit"
+                            className="w-full"
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? <>
