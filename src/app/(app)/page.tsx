@@ -19,7 +19,7 @@ export default function Home() {
             Ask questions without caring about your identity! &#128521;
           </h1>
           <p className="mt-3 md:mt-4 text-base md:text-lg">
-            SpeakOut - Where your identity remains a secret.
+            AskAway - Where your identity remains a secret.
           </p>
         </section>
 

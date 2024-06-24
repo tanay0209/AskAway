@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
-    title: "SpeakOut",
-    description: "SpeakOut is a web application where users can ask questions to others without revealing their identity.",
+    title: "AskAway",
+    description: "AskAway is a web application where users can ask questions to others without revealing their identity.",
 };
 
 export default function RootLayout({

@@ -14,7 +14,7 @@ function Navbar() {
             <div className='md:container mx-auto flex flex-row justify-between items-center'>
                 <a
                     className='md:text-xl text-lg font-bold'
-                    href="/">SpeakOut </a>
+                    href="/">AskAway </a>
                 {
                     session ? (
                         <Button
