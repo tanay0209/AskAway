@@ -13,7 +13,7 @@ export default function RootLayout({
         {children}
       </div>
       <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">
-        Designed and Developer with &#10084;
+        Designed and Developed with &#10084;
       </footer>
     </div>
   );
