@@ -52,7 +52,7 @@ function Signin() {
             className="flex justify-center items-center min-h-screen bg-gray-100 p-4"
         >
             <div
-                className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md"
+                className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md"
             >
                 <div className="text-center">
                     <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">Join AskAway</h1>
@@ -110,16 +110,13 @@ function Signin() {
                         </Button>
                     </form>
                 </Form>
-                <div className="text-center mt-4">
-                    <p>Guest username:guest  password:12345678</p>
-                    <p>
-                        New User?{' '}
-                        <Link
-                            href='/sign-up'
-                            className="text-blue-600 hover:text-blue-800"
-                        >Sign up</Link>
-                    </p>
-                </div>
+                <p className='text-center'>
+                    New User?{' '}
+                    <Link
+                        href='/sign-up'
+                        className="text-blue-600 hover:text-blue-800"
+                    >Sign up</Link>
+                </p>
             </div>
         </div>
     )

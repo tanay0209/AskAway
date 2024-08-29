@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react"
-const inter = Inter({ subsets: ["latin"] });
-
+const poppins = Poppins({
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    subsets: ["latin"]
+});
 
 
 export const metadata: Metadata = {
@@ -21,7 +23,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <AuthProvider>
-                <body className={inter.className}>
+                <body className={poppins.className}>
                     {children}
                     <Toaster />
                 </body>

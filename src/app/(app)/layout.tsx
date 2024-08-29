@@ -1,5 +1,5 @@
+import React from 'react';
 import Navbar from "@/components/Navbar";
-
 
 export default function RootLayout({
   children,
@@ -7,12 +7,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col text-gray-800">
       <Navbar />
-      <div className="flex-1 flex">
+      <main className="flex-grow flex flex-col">
         {children}
-      </div>
-      <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">
+      </main>
+      <footer className="text-center p-4 md:p-6">
         Designed and Developed with &#10084;
       </footer>
     </div>

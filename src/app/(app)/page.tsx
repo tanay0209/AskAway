@@ -1,55 +1,48 @@
 'use client';
-import { Mail } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import messages from '@/messages.json';
-import Autoplay from "embla-carousel-autoplay"
+import React from 'react';
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/ui/carousel';
+const words = [
+  {
+    text: "Ask",
+  },
+  {
+    text: "questions",
+  },
+  {
+    text: "anonymously",
+  },
+  {
+    text: "with",
+  },
+  {
+    text: "AskAway",
+    className: "text-blue-600",
+  },
+];
 
 export default function Home() {
   return (
-    <div className='w-full'>
-      <main className="flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white h-full">
-        <section className="text-center mb-8 md:mb-12">
-          <h1 className="text-2xl md:text-5xl font-bold">
-            Ask questions without caring about your identity! &#128521;
-          </h1>
-          <p className="mt-3 md:mt-4 text-base md:text-lg">
-            AskAway - Where your identity remains a secret.
+    <div className='w-full relative overflow-hidden bg-gradient-to-b from-blue-100 to-white min-h-[calc(100vh-4rem)] flex flex-col justify-center'>
+      <div className="flex flex-col items-center justify-center px-4 md:px-24 py-12 relative z-10">
+        <section className="text-center mb-12">
+          <div className="mx-auto mb-4">
+            <TypewriterEffect words={words} />
+          </div>
+          <p className="mt-4 text-xl text-gray-600">
+            Where your identity remains a secret. &#128521;
           </p>
         </section>
 
-        <Carousel
-          plugins={[Autoplay({ delay: 2000 })]}
-          className="w-full max-w-lg md:max-w-xl"
-        >
-          <CarouselContent>
-            {messages.map((message, index) => (
-              <CarouselItem key={index} className="p-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{message.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
-                    <Mail className="flex-shrink-0" />
-                    <div>
-                      <p>{message.content}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {message.received}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </main>
+        <section className="text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            Start Your Journey
+          </h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Join our community of anonymous question askers and get the answers you need without revealing your identity.
+          </p>
+        </section>
+      </div>
     </div>
-
   );
 }

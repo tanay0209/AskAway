@@ -22,8 +22,8 @@ function PublicPage() {
     const { toast } = useToast()
     const { register, handleSubmit, formState: { errors, isSubmitting }, setValue, reset } = useForm<z.infer<typeof messageSchema>>({ resolver: zodResolver(messageSchema) })
     const delimiter = "||"
-    const initalMessage = "What's a dream destination you've always wanted to visit?||If you could learn any skill instantly, what would it be and why?||What's a book or movie that has profoundly impacted your perspective on life?"
-    const { messages, isLoading, handleSubmit: promptSubmit, error } = useChat({ api: '/api/suggest-messages', initialInput: initalMessage });
+    // const initalMessage = "What's a dream destination you've always wanted to visit?||If you could learn any skill instantly, what would it be and why?||What's a book or movie that has profoundly impacted your perspective on life?"
+    // const { messages, isLoading, handleSubmit: promptSubmit, error } = useChat({ api: '/api/suggest-messages', initialInput: initalMessage });
 
     const parseString = (messageString: string): string[] => {
         return messageString.split(delimiter)
@@ -48,9 +48,9 @@ function PublicPage() {
         }
     }
 
-    const handleMessageClick = (message: string) => {
-        setValue("content", message)
-    }
+    // const handleMessageClick = (message: string) => {
+    //     setValue("content", message)
+    // }
 
     const onSubmit = async (data: z.infer<typeof messageSchema>) => {
         try {
@@ -112,7 +112,7 @@ function PublicPage() {
         fetchStatus()
         fetchMessages()
 
-    }, [username, acceptingMsg, messages, setMessages])
+    }, [username, acceptingMsg, setMessages]) // messages
 
     return (
         <div className="md:max-w-4xl max-w-md  mx-auto mt-8 p-8">
@@ -142,14 +142,14 @@ function PublicPage() {
                 {acceptingMsg ? <></> : <p className="text-red-400">{username} is not accepting messages currently.</p>}
             </div>
             <div className="flex flex-col space-y-4 mt-8">
-                <form onSubmit={promptSubmit}>
+                {/* <form onSubmit={promptSubmit}>
                     <Button
                         type="submit"
                         disabled={isLoading}
                         className="w-40">Suggest Message</Button>
-                </form>
-                <p>Click on any message to select it.</p>
-                <div className="border rounded-md p-4">
+                </form> */}
+                {/* <p>Click on any message to select it.</p> */}
+                {/* <div className="border rounded-md p-4">
                     <h3
                         className="font-semibold text-2xl"
                     >Messages</h3>
@@ -180,7 +180,7 @@ function PublicPage() {
                                     </li>
                                 })}
                             </ul>}</>}</>}
-                </div>
+                </div> */}
                 <div>
                     <h2
                         className="text-xl font-bold"
@@ -188,19 +188,19 @@ function PublicPage() {
                         Questions asked to {username}</h2>
                 </div>
                 <div
-                    className=" md:gap-2 grid grid-cols-1 md:grid-cols-2"
+                    className="md:gap-2 grid grid-cols-1 md:grid-cols-2"
                 >
                     {message.length === 0 ? <h3>{username} hasn&apos;t answered any questions so far...</h3> : <>
                         {
                             message.map(message => {
                                 return message.visibility ? <div
-                                    className="border border-gray-200 p-2 rounded-md"
+                                    className="border border-gray-200 shadow-md p-3 my-2 md:my-0 rounded-md"
                                     key={message._id}
                                 >
                                     <p
-                                        className="font-semibold"
+                                        className="font-semibold text-gray-60"
                                     >
-                                        Msg.  {message.content}
+                                        Msg. {message.content}
                                     </p>
                                     <p
                                         className="font-normal"

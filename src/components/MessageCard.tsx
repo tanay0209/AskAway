@@ -22,12 +22,10 @@ import { useForm } from "react-hook-form"
 import { answerSchema } from "@/schemas/answerSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from 'zod'
-import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { FiEye } from "react-icons/fi";
-import { FiEyeOff } from "react-icons/fi";
+import { FiEye, FiTrash2, FiEyeOff } from "react-icons/fi"
 import { IoIosShareAlt } from "react-icons/io";
 
 type MessageCardProps = {
@@ -43,7 +41,7 @@ function MessageCard({ username, message, onMessageDelete }: MessageCardProps) {
     const form = useForm<z.infer<typeof answerSchema>>({
         resolver: zodResolver(answerSchema),
         defaultValues: {
-            content: ''
+            content: answer || ''
         }
     })
     const handleDeleteConfirm = async () => {
@@ -130,104 +128,77 @@ function MessageCard({ username, message, onMessageDelete }: MessageCardProps) {
     }
 
     return (
-        <div className="border border-gray-200 py-2 px-4 rounded-sm flex flex-col justify-between shadow-md">
-            <div>
+        <div className="border border-gray-200 p-4 rounded-lg flex flex-col justify-between shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className='flex justify-between flex-col'>
                 <div className='flex justify-end gap-2 items-center'>
                     {visibility ? <button
                         onClick={() => changeMessageVisibility(_id)}
-                        className='text-lg'
+                        className='text-lg text-blue-500 hover:text-blue-700'
                     >
                         <FiEye />
                     </button> :
                         <button
                             onClick={() => changeMessageVisibility(_id)}
-                            className='text-lg'
+                            className='text-lg text-gray-500 hover:text-gray-700'
                         >
                             <FiEyeOff />
                         </button>}
-                    {/* <button
-                        className='text-lg'
-                    >
-                        <IoIosShareAlt />
-                    </button> */}
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <FiTrash2 className='text-red-500 cursor-pointer' />
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete this message from our servers.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction className='bg-red-500' onClick={handleDeleteConfirm}>Continue</AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 </div>
-                <p className="break-words font-bold">{content}</p>
-                {answer ? <p className="text-justify text-gray-500 my-2">Ans: {answer}</p> : <p>Ans: You have not answered yet!</p>}
+                <p className="break-words font-bold text-lg mb-4">{content}</p>
             </div>
-            <div className="flex w-full justify-between gap-2 mt-2">
-                <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                        <p className="border border-gray-200 p-2 rounded-md w-1/2 items-center justify-center flex bg-red-500 text-white hover:bg-red-700 cursor-pointer">Delete</p>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete this message from our servers.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleDeleteConfirm}>Continue</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
-                <AlertDialog>
-                    <AlertDialogTrigger asChild >
-                        <p
-                            className="border border-gray-200 p-2 rounded-md w-1/2 items-center justify-center flex cursor-pointer hover:bg-black hover:text-white">Answer</p>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Msg. {content}</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                <Form {...form}>
-                                    <form onSubmit={form.handleSubmit(onSubmit)}
-                                        className="space-y-6"
-                                    >
-                                        <FormField
-                                            name="content"
-                                            control={form.control}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormControl>
-                                                        <textarea
-                                                            style={{ resize: "none" }}
-                                                            className='p-2 mt-2 w-full border border-gray-300  rounded-sm outline-none focus:ring-0 focus:ring-offset-0'
-                                                            placeholder="Add your answer here"
-                                                            rows={5}
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
+            <div className="w-full mt-2">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center space-x-2">
+                        <FormField
+                            name="content"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem className="flex-grow">
+                                    <FormControl>
+                                        <input
+                                            type='text'
+                                            className='p-2 w-full border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
+                                            placeholder={answer ? answer : "Add your answer here"}
+                                            {...field}
                                         />
-                                        <Button
-                                            type="submit"
-                                            className='w-full'
-                                            disabled={isSubmitting}
-                                        >
-                                            {isSubmitting ? <>
-                                                <Loader2
-                                                    className="mr-2 h-4 w-4 animate-spin"
-                                                /> Please wait
-                                            </> : "Save"}
-                                        </Button>
-                                    </form>
-                                </Form>
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel
-                                className='w-full'
-                            >Cancel</AlertDialogCancel>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button
+                            type="submit"
+                            className='bg-black hover:bg-black/80 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 whitespace-nowrap'
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Wait
+                                </>
+                            ) : "Save"}
+                        </Button>
+                    </form>
+                </Form>
             </div>
         </div>
-
     )
 }
 

@@ -131,7 +131,7 @@ function UserDashboard() {
         });
     };
     return (
-        <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+        <div className="my-12 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
             <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
             <h2 className='mb-2 text-lg'>Welcome, {session?.user.username}</h2>
             <div className="mb-4">
